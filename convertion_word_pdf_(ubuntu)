@@ -1,0 +1,31 @@
+"""
+Nom du script : Convertisseur en masse de Word vers PDF
+Description : Parcourt un dossier, détecte les fichiers .docx et les convertit 
+              automatiquement en .pdf en arrière-plan via LibreOffice (compatible Linux/Ubuntu).
+Auteur : Jaurès
+"""
+import os
+import subprocess
+
+dossier_source = "./documents1"
+print("Conversion en cours!")
+for fichier in os.listdir(dossier_source):
+  if fichier.endswith(".docx"):
+    chemin_docx = os.path.join(dossier_source, fichier)
+
+    
+    subprocess.run(
+        [
+            "libreoffice",
+            "--headless",
+            "--convert-to",
+            "pdf",
+            chemin_docx,
+            "--outdir",
+            dossier_source,
+        ],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+
+print("Conversion terminée sans bruit !")
